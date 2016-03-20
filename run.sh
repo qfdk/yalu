@@ -125,15 +125,15 @@ echo "Compiling jailbreak files..."
 cd tmp
 lipo -info dyld.fat | grep arm64 >/dev/null &&  lipo dyld.fat -thin arm64 -output dyld64
 lipo -info dyld.fat | grep Non-fat >/dev/null || (lipo dyld.fat -thin "$(lipo -info dyld.fat | tr ' ' '\n' | grep v7)" -output dyld; mv dyld dyld.fat) && mv dyld.fat dyld
-$SCRIPTPATH./bin/jtool -e IOKit cache
-$SCRIPTPATH./bin/jtool -e libsystem_kernel.dylib cache
+../bin/jtool -e IOKit cache
+../bin/jtool -e libsystem_kernel.dylib cache
 lipo -info dyld64 | grep arm64 >/dev/null && (
-$SCRIPTPATH./bin/jtool -e libdyld.dylib cache64
-cd $SCRIPTPATH./data/dyldmagic_amfid
+../bin/jtool -e libdyld.dylib cache64
+cd ../data/dyldmagic_amfid
 ./make.sh
 cd ../..
 )
-cd $SCRIPTPATH./data/dyldmagic
+cd ../data/dyldmagic
 ./make.sh
 
 echo "Copying files to device..."
